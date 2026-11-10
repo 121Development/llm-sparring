@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "llm-sparring",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  // nodejs_compat for the MCP SDK; global_fetch_strictly_public is required for
+  // Client ID Metadata Documents (CIMD) so client metadata fetches can't hit private addresses.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "observability": { "enabled": true },
+  "vars": {
+    // PUBLIC_URL: optional; defaults to the request origin (correct on workers.dev).
+    // Set it for tunnels/proxies. Local: .dev.vars; tunnel: scripts/tunnel.sh.
+    "PUBLIC_URL": "",
+    "GPT_MODEL": "gpt-6-astra",
+    "GPT_REASONING_EFFORT": "",
+    "GPT_PROVIDER": "openai",
+    "ALLOWED_ORIGINS": ""
+  },
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "ba0c9fe5bc7749fbbead6b5de117646d" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "llm-sparring", "database_id": "3a822419-18ed-415a-901a-a8fa3e1cb1d7", "migrations_dir": "migrations" }]
+  // Secrets (wrangler secret put / .dev.vars): OPENAI_API_KEY, USERS
+}

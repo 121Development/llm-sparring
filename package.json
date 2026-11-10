@@ -1,0 +1,51 @@
+{
+  "name": "llm-sparring",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server that lets Claude consult GPT as critic, debate opponent and second answerer.",
+  "bin": {
+    "llm-sparring": "dist/stdio.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/stdio.js",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.worker.json",
+    "inspect": "pnpm build && npx @modelcontextprotocol/inspector@2.14.0 node dist/stdio.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply llm-sparring --local",
+    "db:migrate:remote": "wrangler d1 migrations apply llm-sparring --remote",
+    "hash-passphrase": "node scripts/hash-passphrase.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^1.2.4",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261109.1",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.159.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/121Development/llm-sparring.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "gpt",
+    "openai",
+    "codex",
+    "cloudflare-workers"
+  ]
+}
